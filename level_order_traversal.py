@@ -27,6 +27,28 @@ class LevelOrderTraverse:
 			if node.right:
 				queue.append(node.right)
 		return level
+
+	@staticmethod
+	def seperate_line_level_display(node):
+		queue = []
+		level = []
+		queue.append(node)
+		queue.append(None)
+		temp = []
+		while queue:
+			node = queue.pop(0)
+			if node is not None:
+				temp.append(node.data)
+				if node.left:
+					queue.append(node.left)
+				if node.right:
+					queue.append(node.right)
+			if node is None:
+				if queue:
+					queue.append(None)
+				level.append(temp[:])
+				temp = []
+		return level
 			
 			
 			
@@ -34,7 +56,7 @@ class LevelOrderTraverse:
 if __name__ == '__main__':
 	root = None
 	while(True):
-		choice = raw_input('Enter choice:\n1.Enter Tree\n2.Print Inorder\n3.Print Level traversle.\n4.Exit\n')
+		choice = raw_input('Enter choice:\n1.Enter Tree\n2.Print Inorder\n3.Print Level traversle.\n4.Print level Traversle in seperate line\n5.Exit\n')
 		if choice == '1':
 			tree = map(int, raw_input('Enter data:\n').strip().split())
 			for dat in tree:
@@ -61,6 +83,9 @@ if __name__ == '__main__':
 		elif choice == '3':
 			l_dict = LevelOrderTraverse.level_travers(root)
 			print(l_dict)
-			
 		elif choice == '4':
+			l_dict = LevelOrderTraverse.seperate_line_level_display(root)
+			for l in l_dict:
+				print(l)
+		elif choice == '5':
 			break
